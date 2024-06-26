@@ -1,1 +1,1 @@
-web: gunicorn inventor-forum.wsgi
+web: gunicorn amateurinventors.wsgi
