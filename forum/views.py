@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from.models import Idea
 
 # Create your views here.
-def my_forum(request):
-    return HttpResponse("Hello, Blog!")
+
+class IdeaList(generic.ListView):
+    queryset = Idea.objects.all()
+    template_name = "idea_list.html"
