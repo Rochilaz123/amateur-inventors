@@ -21,3 +21,16 @@ nav a {
 .fa-bars {
     color: white;
 }
+
+#idea-card {
+    width: 75%;
+    margin: 0 auto;
+}
+
+
+/* Media query for large screens */
+@media (min-width: 992px) {
+    #idea-card {
+        width: 50%;
+    }
+}
