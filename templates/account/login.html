@@ -7,26 +7,32 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mt-4">
   <div class="row">
-    <div class="col md-6 offset-md-3">
-      <h1 >{% trans "Sign In" %}</h1>
-      <p>Welcome to the Amateur Inventors community!</p> 
-      <p>To share ideas and leave comments, please sign in.</p>
-        <p>If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.</p>
-      
-
-      <form class="login" method="POST" action="{% url 'account_login' %}">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="text-center mb-4">{% trans "Sign In" %}</h1>
+      <p class="text-center">Welcome to the Amateur Inventors community!</p>
+      <p class="text-center">To share ideas and leave comments, please sign in.</p>
+      <p class="text-center">If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-4">
+      <form class="login mt-4 ms-5" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="mb-3">
+          {{ form.as_p }}
+        </div>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+        <button class="btn btn-secondary" type="submit">{% trans "Sign In" %}</button>
       </form>
     </div>
   </div>
 </div>
+
 
 {% endblock content %}
