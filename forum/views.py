@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views import generic
 from .models import Idea
 from .forms import IdeaForm
@@ -27,12 +29,15 @@ def idea_detail(request, slug):
 def idea_form(request):
 
     # Create the form first
-    form = IdeaForm()
+    form = IdeaForm(request.POST)
 
-    return render(
-        request,
-        "forum/idea_form.html",
-        {
-            "idea_form": form,
-        }
-    )
+    if request.method == "POST":
+        if form.is_valid():
+            idea = form.save(commit=False)
+            idea.author = request.user
+            idea.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = IdeaForm()
+    
+    return render(request, "forum/idea_form.html", {"idea_form": form})

@@ -22,17 +22,16 @@ nav a {
     color: white;
 }
 
-#idea-card {
-    width: 75%;
-    margin: 0 auto;
+/* Main content styles */
+
+body {
+    margin-top: 60px;
 }
 
 
-/* Media query for large screens */
-@media (min-width: 992px) {
-    #idea-card {
-        width: 50%;
-    }
+#idea-card {
+    width: 75%;
+    margin: 0 auto;
 }
 
 .background-orange {
@@ -51,4 +50,12 @@ nav a {
 
 .background-orange {
     background-color: orange;
+}
+
+
+/* Media query for large screens */
+@media (min-width: 992px) {
+    #idea-card {
+        width: 50%;
+    }
 }

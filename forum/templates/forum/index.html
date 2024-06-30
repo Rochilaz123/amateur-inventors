@@ -4,7 +4,7 @@
 <!-- index.html content starts here -->
 <div class="container-fluid">
     {% if user.is_authenticated %}
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-md-4 offset-4 text-center">
             <button class="btn background-orange mt-3"><a href="{% url 'idea_form' %}">Share an Idea!</a></button>
         </div>
@@ -22,7 +22,7 @@
                                     <p class="author">Author: {{ idea.author }}</p>
                                 </div>
                             </div>
-                            <a href="{% url 'idea_detail' idea.slug %}" class="post-link">
+                            <a href="{% url 'idea_detail' idea.slug %}" class="">
                                 <h2 class="card-title">{{ idea.title }}</h2>
                             </a>
 

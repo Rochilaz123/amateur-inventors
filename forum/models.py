@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from cloudinary.models import CloudinaryField
 
 
@@ -22,3 +23,7 @@ class Idea(models.Model):
     issues = models.TextField(blank=True)
     progress = models.IntegerField(choices=PROGRESS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
