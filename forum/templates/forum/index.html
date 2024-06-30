@@ -3,9 +3,14 @@
 {% block content %}
 <!-- index.html content starts here -->
 <div class="container-fluid">
+    {% if user.is_authenticated %}
+    <div class="row mt-5">
+        <div class="col-md-4 offset-4 text-center">
+            <button class="btn background-orange mt-3"><a href="{% url 'idea_form' %}">Share an Idea!</a></button>
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
-
-        <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for idea in idea_list %}

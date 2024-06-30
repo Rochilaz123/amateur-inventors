@@ -34,3 +34,21 @@ nav a {
         width: 50%;
     }
 }
+
+.background-orange {
+    background-color: orange;
+    color: white;
+}
+
+.orange {
+    color: orange;
+}
+
+.link:hover,
+.link:active {
+    color: orange;
+}
+
+.background-orange {
+    background-color: orange;
+}
