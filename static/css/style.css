@@ -52,6 +52,16 @@ body {
     background-color: orange;
 }
 
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+a h2 {
+    color: orange;
+    text-decoration: none;
+}
+
 
 /* Media query for large screens */
 @media (min-width: 992px) {
