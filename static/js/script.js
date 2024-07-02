@@ -6,7 +6,6 @@ const purpose = document.getElementById("purpose").innerText;
 const details = document.getElementById("details").innerText;
 const issues = document.getElementById("issues").innerText;
 
-
 function populateModal(title, purpose, details, issues) {
     console.log("populateModal working")
     document.getElementById('id_title').value = title;
@@ -16,8 +15,11 @@ function populateModal(title, purpose, details, issues) {
   }
 
 for (let button of editButtons) {
+
   button.addEventListener("click", (e) =>
+
     editModal.show(),
+    
     populateModal(title, purpose, details, issues)
 )}
   

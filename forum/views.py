@@ -16,7 +16,10 @@ class IdeaList(generic.ListView):
 def idea_detail(request, slug):
     queryset = Idea.objects.all()
     idea = get_object_or_404(queryset, slug=slug)
-    # This was not added - you will also need to ad the post functionality here - essentially you are staying in the detail view wheny ou are clicking on the modal 
+    comments = idea.comments.all().order_by("-created_on")
+    comment_count = idea.comments.all().count()
+    # This was not added - you will also need to ad the post functionality here -
+    # essentially you are staying in the detail view wheny ou are clicking on the modal 
     idea_form = IdeaForm()
     return render(
         request,
@@ -24,7 +27,8 @@ def idea_detail(request, slug):
         {
             "idea": idea,
             "idea_form": idea_form,
-
+            "comments": comments,
+            "comment_count": comment_count,
         },
     )
 
@@ -50,32 +54,7 @@ def idea_form(request):
     return render(request, "forum/idea_form.html", {"idea_form": form})
 
 
-# # @login_required
-# def idea_edit(request, slug, idea_id):
-#     """
-#     view to edit ideas
-#     """
-
-#     if request.method == "POST":
-#         queryset = Idea.objects.all()
-#         idea = get_object_or_404(queryset, slug=slug)
-#         form = IdeaForm(data=request.POST, instance=idea)
-
-#         if form.is_valid() and idea.author == request.user:
-#             idea = form.save(commit=False)
-#             idea.save()
-#             messages.add_message(
-#                 request, messages.SUCCESS,
-#                 'Idea successfully updated!'
-#             )
-#             return HttpResponseRedirect('/')
-#         else:
-#             messages.add_message(request, messages.ERROR,
-#             'Error updating idea!')
-    
-#     return render(request, "forum/idea_form.html", {"idea_form": form})
-
-# # @login_required
+# @login_required
 def idea_edit(request):
     idea = get_object_or_404(queryset, slug=slug)
     if request.method == "POST":
@@ -91,3 +70,5 @@ def idea_edit(request):
     else:
         form = IdeaForm()
     return render(request, 'idea_detail.html', {'form': form, 'idea': idea})
+
+
