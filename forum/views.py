@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib import messages
 from .models import Idea
-from .forms import IdeaForm
+from .forms import IdeaForm, CommentForm
 
 # Create your views here.
 
@@ -18,8 +18,22 @@ def idea_detail(request, slug):
     idea = get_object_or_404(queryset, slug=slug)
     comments = idea.comments.all().order_by("-created_on")
     comment_count = idea.comments.all().count()
-    # This was not added - you will also need to ad the post functionality here -
-    # essentially you are staying in the detail view wheny ou are clicking on the modal 
+
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.idea = idea
+            comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Comment submitted successfully!'
+                )
+
+    comment_form = CommentForm()
+    # This was not added - you will also need to add the post functionality here -
+    # essentially you are staying in the detail view when you are clicking on the modal 
     idea_form = IdeaForm()
     return render(
         request,
@@ -29,6 +43,7 @@ def idea_detail(request, slug):
             "idea_form": idea_form,
             "comments": comments,
             "comment_count": comment_count,
+            "comment_form": comment_form,
         },
     )
 
