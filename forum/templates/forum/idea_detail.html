@@ -9,7 +9,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Idea</h5>
+          <h5 class="modal-title" id="editModalLabel"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -18,12 +18,12 @@
           <div class="container mb-5">
             <div class="row">
               <div class="col-md-6 offset-md-3">
-                <h2 class="text-center mt-3 orange">Share an Idea!</h2>
+                <h2 class="text-center mt-3 orange">Update your idea!</h2>
                 <p class="text-center text-muted">Posting as: {{ user.username }}</p>
                 <form class="" id="ideaForm" method="post">
                   {{ idea_form | crispy }}
                   {% csrf_token %}
-                  <button id="submitButton" type="submit" class="btn background-orange text-white">Submit</button>
+                  <button id="submitButton" type="submit" class="btn background-orange text-white">Update</button>
                 </form>
               </div>
             </div>
@@ -37,20 +37,20 @@
 <div class="card container mt-5" id="idea-card">
     <div class="row">
         <div class="col-md-12 text-center mt-4">
-            <h3 class="mt-3">{{ idea.title }}</h3>
+            <h3 class="mt-3" id="title">{{ idea.title }}</h3>
             <p class="text-muted">{{ idea.author }} | {{ idea.created_on }}</p>
         </div>
     </div>
     <div class="row mt-3 text-center">
         <div class="col-md-6 offset-md-3">
             <div class="card-body p-3">
-                <p><strong>Purpose:</strong> {{ idea.purpose }}</p>
+                <p ><strong>Purpose:</strong> <span id="purpose">{{ idea.purpose }}</span></p>
             </div>
         </div>
     </div>
     <div class="row mt-3">
         <div class="{% if idea.mockup_image %}col-md-6{% endif %} text-center">
-            <p><strong>Details: </strong>{{ idea.details }}</p>
+            <p><strong>Details: </strong><span id="details">{{ idea.details }}</span></p>
         </div>
         {% if idea.mockup_image %}
         <div class="col-md-6">
@@ -59,13 +59,13 @@
         {% endif %}
         {% if idea.issues %}
         <div class="text-center">
-            <p><strong>Issues: </strong>{{ idea.issues }}</p>
+            <p><strong>Issues: </strong><span id="issues">{{ idea.issues }}</span></p>
         </div>
         {% endif %}
         {% if user.is_authenticated and idea.author == user %}
         <div class="row">
             <div class="col text-center mb-3">
-                <button class="btn background-orange col-3 btn-edit" data-toggle="modal" data-target="#editModal">Edit</button>
+                <button class="btn background-orange col-3 btn-edit" data-toggle="modal" data-target="#editModal" >Edit</button>
             </div>
         </div>
         {% endif %}
