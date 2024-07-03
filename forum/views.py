@@ -88,6 +88,21 @@ def idea_edit(request):
     return render(request, 'idea_detail.html', {'form': form, 'idea': idea})
 
 
+def idea_delete(request, slug, idea_id):
+    """
+    view to delete idea
+    """
+    idea = get_object_or_404(Idea, pk=idea_id)
+
+    if idea.author == request.user:
+        idea.delete()
+        messages.add_message(request, messages.SUCCESS, 'Idea deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own ideas!')
+
+    return HttpResponseRedirect(reverse('home'))
+
+
 def comment_edit(request, slug, comment_id):
     """
     view to edit comments
@@ -114,7 +129,7 @@ def comment_delete(request, slug, comment_id):
     view to delete comment
     """
     queryset = Idea.objects.all()
-    post = get_object_or_404(queryset, slug=slug)
+    idea = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
     if comment.author == request.user:

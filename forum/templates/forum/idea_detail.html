@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<!-- Delete confirmation modal -->
+<!-- Delete comment confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1"
   aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -52,6 +52,30 @@
         <button type="button" class="btn btn-secondary"
           data-bs-dismiss="modal">Close</button>
         <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete idea confirmation modal -->
+<div class="modal fade" id="deleteIdeaModal" tabindex="-1"
+  aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="deleteModalLabel">Delete Idea?</h5>
+        <button type="button" class="btn-close"
+          data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your idea and all related comments?
+        This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Close</button>
+        <a id="deleteIdeaConfirm" href="#" class="btn btn-danger">Delete</a>
       </div>
     </div>
   </div>
@@ -87,6 +111,11 @@
     </div>
     {% endif %}
     {% if user.is_authenticated and idea.author == user %}
+    <div class="row">
+      <div class="col text-center mb-3">
+        <button class="btn btn-danger col-3 btn-delete-idea" data-toggle="modal" data-target="#editModal" idea_id="{{ idea.id }}">Delete</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col text-center mb-3">
         <button class="btn background-orange col-3 btn-edit-idea" data-toggle="modal" data-target="#editModal">Edit</button>
