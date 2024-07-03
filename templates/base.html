@@ -35,7 +35,7 @@
           class="logo2">Inventors</span></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fa-solid fa-bars"></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
@@ -72,7 +72,7 @@
 
   <main flex-shrink-0 main-bg>
     {% if user.is_authenticated %}
-    <p class="orange text-end me-3 mb-0"> You are logged in as {{ user }}</p>
+    <p class="orange text-end me-3 mb-1"> You are logged in as {{ user }}</p>
     {% endif %}
 
     {% block content %}

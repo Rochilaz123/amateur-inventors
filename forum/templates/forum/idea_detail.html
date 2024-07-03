@@ -65,7 +65,7 @@
     {% if user.is_authenticated and idea.author == user %}
     <div class="row">
       <div class="col text-center mb-3">
-        <button class="btn background-orange col-3 btn-edit" data-toggle="modal" data-target="#editModal">Edit</button>
+        <button class="btn background-orange col-3 btn-edit-idea" data-toggle="modal" data-target="#editModal">Edit</button>
       </div>
     </div>
     {% endif %}
@@ -101,12 +101,16 @@
           {{ comment.body | linebreaks }}
         </div>
       </div>
+      {% if user.is_authenticated and comment.author == user %}
+      <button class="btn btn-edit background-orange"
+        comment_id="{{ comment.id }}">Edit</button>
+      {% endif %}
       <!-- Our for loop ends here -->
       {% endfor %}
     </div>
   </div>
   <!-- Creating New Comments -->
-  <div class="col-md-4 card mb-4 mt-3">
+  <div class="col-md-4 card mb-5 mt-3">
     <div class="card-body">
       {% if user.is_authenticated %}
       <h3>Leave a comment:</h3>
