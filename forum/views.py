@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import Idea, Comment
 from .forms import IdeaForm, CommentForm
 
@@ -106,5 +107,20 @@ def comment_edit(request, slug, comment_id):
         else:
             messages.add_message(request, messages.ERROR, 'Error updating comment!')
 
-    return HttpResponseRedirect('/', 'slug=slug')
-    # return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
+    return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
+
+def comment_delete(request, slug, comment_id):
+    """
+    view to delete comment
+    """
+    queryset = Idea.objects.all()
+    post = get_object_or_404(queryset, slug=slug)
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    if comment.author == request.user:
+        comment.delete()
+        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+
+    return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
