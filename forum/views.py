@@ -106,5 +106,5 @@ def comment_edit(request, slug, comment_id):
         else:
             messages.add_message(request, messages.ERROR, 'Error updating comment!')
 
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/', 'slug=slug')
     # return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
