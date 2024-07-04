@@ -10,7 +10,7 @@
 
 <head>
   <title>Amateur Inventors</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!--Favicon-->
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <main flex-shrink-0 main-bg>
+  <main class="flex-shrink-0 main-bg">
     {% if user.is_authenticated %}
     <p class="orange text-end me-3 mb-1"> You are logged in as {{ user }}</p>
     {% endif %}

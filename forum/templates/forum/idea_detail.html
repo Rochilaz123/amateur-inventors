@@ -9,7 +9,6 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel"></h5>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -23,7 +22,7 @@
               <form class="" id="ideaForm" method="post">
                 {{ idea_form | crispy }}
                 {% csrf_token %}
-                <button id="submitButton" type="submit" class="btn background-orange text-white">Update</button>
+                <button id="submitIdeaButton" type="submit" class="btn background-orange text-white">Update</button>
               </form>
             </div>
           </div>
@@ -40,7 +39,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"
-          id="deleteModalLabel">Delete comment?</h5>
+          id="deleteCommentModalLabel">Delete comment?</h5>
         <button type="button" class="btn-close"
           data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -108,12 +107,12 @@
     {% if user.is_authenticated and idea.author == user %}
     <div class="row">
       <div class="col text-center mb-3">
-        <button class="btn btn-danger col-3 btn-delete-idea" data-toggle="modal" data-target="#editModal" idea_id="{{ idea.id }}">Delete</button>
+        <button class="btn btn-danger col-4 col-md-3 btn-delete-idea" data-toggle="modal" data-target="#editModal" idea_id="{{ idea.id }}">Delete</button>
       </div>
     </div>
     <div class="row">
       <div class="col text-center mb-3">
-        <button class="btn background-orange col-3 btn-edit-idea" data-toggle="modal" data-target="#editModal" idea_id="{{ idea.id }}">Edit</button>
+        <button class="btn background-orange col-4 col-md-3 btn-edit-idea" data-toggle="modal" data-target="#editModal" idea_id="{{ idea.id }}">Edit</button>
       </div>
     </div>
     {% endif %}
@@ -135,8 +134,6 @@
   <div class="col-md-7 mb-4 mt-3 ms-2">
     <h3>Comments:</h3>
     <div class="card-body">
-      <!-- We want a for loop inside the empty control tags
-        to iterate through each comment in comments -->
       {% for comment in comments %}
       <div class="p-2 comments">
         <p class="font-weight-bold">

@@ -4,7 +4,10 @@ from django.template.defaultfilters import slugify
 from cloudinary.models import CloudinaryField
 
 
-PROGRESS = ((0, "Still an Idea"), (1, "Working on prototypes"), (2, "Ready for production"), (3, "This idea is now a reality!"),)
+PROGRESS = ((0, "Still an Idea"), (1, "Working on prototypes"),
+            (2, "Ready for production"),
+            (3, "This idea is now a reality!"),)
+
 
 # Create your models here.
 class Idea(models.Model):
@@ -27,7 +30,6 @@ class Idea(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-
 
 
 class Comment(models.Model):

@@ -10,6 +10,7 @@ from .forms import IdeaForm, CommentForm
 
 # Create your views here.
 
+
 class IdeaList(generic.ListView):
     queryset = Idea.objects.all().order_by('-created_on')
     template_name = "forum/index.html"
@@ -20,7 +21,9 @@ def idea_detail(request, slug):
     idea = get_object_or_404(queryset, slug=slug)
     comments = idea.comments.all().order_by("-created_on")
     comment_count = idea.comments.all().count()
-
+    """
+    View to edit comments on idea_detail page.
+    """
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -51,8 +54,10 @@ def idea_detail(request, slug):
 
 @login_required
 def idea_form(request):
+    """
+    view for idea form
+    """
 
-    # Create the form first
     form = IdeaForm(request.POST)
 
     if request.method == "POST":
@@ -67,7 +72,7 @@ def idea_form(request):
             return HttpResponseRedirect('/')
     else:
         form = IdeaForm()
-    
+
     return render(request, "forum/idea_form.html", {"idea_form": form})
 
 
@@ -100,6 +105,7 @@ def idea_edit(request, slug, idea_id):
 
     return HttpResponseRedirect(reverse('home'))
 
+
 @login_required
 def idea_delete(request, slug, idea_id):
     """
@@ -109,9 +115,11 @@ def idea_delete(request, slug, idea_id):
 
     if idea.author == request.user:
         idea.delete()
-        messages.add_message(request, messages.SUCCESS, 'Idea deleted!')
+        messages.add_message(request, messages.SUCCESS,
+                            'Idea deleted!')
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own ideas!')
+        messages.add_message(request, messages.ERROR,
+                            'You can only delete your own ideas!')
 
     return HttpResponseRedirect(reverse('home'))
 

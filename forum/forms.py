@@ -7,7 +7,7 @@ class IdeaForm(forms.ModelForm):
         model = Idea
         fields = ('title', 'purpose', 'details', 'issues')
 
-    
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

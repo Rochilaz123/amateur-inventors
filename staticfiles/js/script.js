@@ -11,6 +11,10 @@ const deleteButtons = document.getElementsByClassName("btn-delete");
 const deleteIdeaButtons = document.getElementsByClassName("btn-delete-idea");
 const deleteConfirm = document.getElementById("deleteConfirm");
 const closeButtons = document.getElementsByClassName("btn-close");
+const editButtons = document.getElementsByClassName("btn-edit");
+const commentText = document.getElementById("id_body");
+const commentForm = document.getElementById("commentForm");
+const submitButton = document.getElementById("submitButton");
 
 // Edit Idea
 
@@ -33,12 +37,6 @@ for (let button of editIdeaButtons) {
     const issuesElement = document.getElementById('issues');
     const issues = issuesElement ? issuesElement.textContent : 'Element with id "issues" not found';
 
-    
-    // // Get the idea details from the clicked button
-    // let title = e.target.getAttribute("title");
-    // let purpose = e.target.getAttribute("purpose");
-    // let details = e.target.getAttribute("details");
-    // let issues = e.target.getAttribute("issues");
 
     // Populate the modal with the idea details
     populateModal(title, purpose, details, issues);
@@ -59,34 +57,7 @@ document.getElementById('ideaForm').addEventListener('submit', function(e) {
   this.submit();
 });
 
-// function populateModal(title, purpose, details, issues) {
-//   document.getElementById('id_title').value = title;
-//   document.getElementById('id_purpose').value = purpose;
-//   document.getElementById('id_details').value = details;
-//   document.getElementById('id_issues').value = issues;
-// }
-
-// for (let button of editIdeaButtons) {
-//   button.addEventListener("click", (e) => {
-//     editModal.show();
-//     populateModal(title, purpose, details, issues);
-    
-//     let ideaId = e.target.getAttribute("idea_id");
-//     commentForm.setAttribute("action", `edit_comment/${commentId}`);
-//   });
-// }
-
-  // for (let button of closeButtons) {
-  //   button.addEventListener("click", (e) =>
-  //   editModal(hide));
-  // }                            // This button for closing the modal isn't working at the moment
-
 // Edit Comment
-
-const editButtons = document.getElementsByClassName("btn-edit");
-const commentText = document.getElementById("id_body");
-const commentForm = document.getElementById("commentForm");
-const submitButton = document.getElementById("submitButton");
 
 /**
  * Initializes edit functionality for the provided edit buttons.
@@ -128,6 +99,9 @@ for (let button of deleteButtons) {
     deleteModal.show();
   });
 }
+
+
+//Delete Idea
 
 /**
  * Initializes deletion functionality for the provided delete buttons.
