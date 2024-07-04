@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 from django.views import generic
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Idea, Comment
@@ -33,9 +34,8 @@ def idea_detail(request, slug):
                 )
 
     comment_form = CommentForm()
-    # This was not added - you will also need to add the post functionality here -
-    # essentially you are staying in the detail view when you are clicking on the modal 
     idea_form = IdeaForm()
+
     return render(
         request,
         "forum/idea_detail.html",
@@ -47,6 +47,7 @@ def idea_detail(request, slug):
             "comment_form": comment_form,
         },
     )
+
 
 # @login_required
 def idea_form(request):
@@ -71,28 +72,40 @@ def idea_form(request):
 
 
 # @login_required
-def idea_edit(request):
-    idea = get_object_or_404(queryset, slug=slug)
+def idea_edit(request, slug, idea_id):
+    """
+    view to edit idea
+    """
     if request.method == "POST":
+
+        idea = get_object_or_404(Idea, pk=idea_id)
+        form = IdeaForm(data=request.POST, instance=idea)
+
         if form.is_valid() and idea.author == request.user:
             idea = form.save(commit=False)
+            print('form in progress')
             idea.author = request.user
             idea.save()
+            print('idea saved')
             messages.add_message(
                 request, messages.SUCCESS,
-                'Idea updated successfully!'
-            )
-            return HttpResponseRedirect('/')
+                'Idea updated successfully!')
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                'Error updating Idea!')
+            return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
     else:
         form = IdeaForm()
-    return render(request, 'idea_detail.html', {'form': form, 'idea': idea})
 
+    return HttpResponseRedirect(reverse('home'))
 
+# @login_required
 def idea_delete(request, slug, idea_id):
     """
     view to delete idea
     """
-    idea = get_object_or_404(Idea, pk=idea_id)
+    idea = get_object_or_404(Idea, pk=idea_id, slug=slug)
 
     if idea.author == request.user:
         idea.delete()
@@ -103,6 +116,7 @@ def idea_delete(request, slug, idea_id):
     return HttpResponseRedirect(reverse('home'))
 
 
+# @login_required
 def comment_edit(request, slug, comment_id):
     """
     view to edit comments
@@ -124,6 +138,8 @@ def comment_edit(request, slug, comment_id):
 
     return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
 
+
+# @login_required
 def comment_delete(request, slug, comment_id):
     """
     view to delete comment
