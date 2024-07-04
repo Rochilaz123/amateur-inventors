@@ -49,7 +49,7 @@ def idea_detail(request, slug):
     )
 
 
-# @login_required
+@login_required
 def idea_form(request):
 
     # Create the form first
@@ -71,7 +71,7 @@ def idea_form(request):
     return render(request, "forum/idea_form.html", {"idea_form": form})
 
 
-# @login_required
+@login_required
 def idea_edit(request, slug, idea_id):
     """
     view to edit idea
@@ -100,7 +100,7 @@ def idea_edit(request, slug, idea_id):
 
     return HttpResponseRedirect(reverse('home'))
 
-# @login_required
+@login_required
 def idea_delete(request, slug, idea_id):
     """
     view to delete idea
@@ -116,7 +116,7 @@ def idea_delete(request, slug, idea_id):
     return HttpResponseRedirect(reverse('home'))
 
 
-# @login_required
+@login_required
 def comment_edit(request, slug, comment_id):
     """
     view to edit comments
@@ -139,7 +139,7 @@ def comment_edit(request, slug, comment_id):
     return HttpResponseRedirect(reverse('idea_detail', args=[slug]))
 
 
-# @login_required
+@login_required
 def comment_delete(request, slug, comment_id):
     """
     view to delete comment

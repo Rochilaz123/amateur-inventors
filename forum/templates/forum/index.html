@@ -10,6 +10,12 @@
                     Idea!</a></button>
         </div>
     </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-2 text-center">
+            <a class="btn background-orange" href="{% url 'account_signup' %}">Register now to join our amateur inventors community!</a>
+        </div>
+    </div>
     {% endif %}
     <div class="row">
         <div class="col-12 mt-3 left">
