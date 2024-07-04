@@ -41,6 +41,10 @@ Overall, this website serves as a supportive community for amateur inventors to 
 
 - The goal of Amateur Inventors is to provide a forum for aspiring inventors to voice their idea's and initiate discussions or provide feedback on other user's ideas. Users should be able to navigate around the site intuitively and easily. Users should also be able to update or delete any ideas or comments they have posted previously when logged in.
 
+### Wireframes
+
+![idea detail image](readme-images/wireframes.png) 
+
 ### User Stories
 
 As a user:
@@ -51,9 +55,6 @@ As a user:
 - When logged in, I can edit or delete comments I have previously posted so that i can manage my commments.
 - I can click on a post to open a detailed view.
 - I can view all ideas posted on my homepage so that i can decide which ones to look at.
-
-### Wireframes
-
 
 
 ### Database Structure
@@ -98,9 +99,12 @@ As a user:
 	- No errors found with [Python](https://pep8ci.herokuapp.com/) validator.
 		- In settings.py file, there are some lines that are too long, but they cannot be shortened.
 
+
+
 ### Unfixed Bugs
 
  - The form for the user to share an idea wasn't linked properly to Cloudinary, so the images weren't showing. I ultimately decided not to fix that bug, and to take the image option off the form, as I wanted to minimise the number of fields on the form. Additionally, most inventors at this stage won't have a mockup of the invention, so it didn't have much use.
+
 
  
  ### Testing user stories
@@ -124,12 +128,23 @@ As a user, I want to be able to add, update and delete ideas and comments easily
 Adding and making changes to my comments and post is very easy and quick.
 
 
+
 ###  Manual Testing
 
 |**Feature**|**Expect**|**Action**|**Result**|
 |-----------|----------|----------|----------|
 |Nav links| They direct the user to the correct page.| Clicked on each nav link on every page.| All nav links led to the correct pages.|
-
+|Share Idea Form| Tells user which fields required, allows to submit when completed. | Tried to submit empty form, partially completed form and completed form| Only allowed to submit when all fields with * were filled in. If missing field, on submit it directs user to the missing field.
+|Share Idea Button| On click takes user to share idea form| click share idea button| User was redirected to share idea form page|
+|Idea Details| On click of a title of any page, a user is directed to a detailed view of that page.| Click the title of an idea post | User was redirected to the correct blog post indetail, with an option to comment when logged in.
+|Edit comment button| Only appears if signed in and the user who wrote the comment | Click on a post and view comments when: 1. Not signed in 2. Signed in as one user 3. signed in as a different user. | When not signed in, a user can view comments, but no edit buttons. When signed in, a edit button is visible for the user for the comment written by them, but not by other users comments.|
+|Edit comment button| On click, the form is populated with the comment, and the user can click submit and the comment updates instantly.| Click edit comment button, change comment in form, click submit| On clicking edit button the form populated correctly, the edited comment replaced the old comment once submit was clicked, and a confirmation message appeared.|
+|Delete comment button| Only appears if signed in and the user who wrote the comment | Click on a post and view comments when: 1. Not signed in 2. Signed in as one user 3. signed in as a different user. | When not signed in, a user can view comments, but no delete buttons. When signed in, a delete button is visible for the user for the comment written by them, but not by other users comments.|
+|Delete comment button| On click, a modal appears for confirmation of delete, on clicking delete the comment dsappears from the screen.| Click delete comment button, click close on modal, click delete button again, click delete on modal| On clicking delete button a modal appeared for confirmation. On clicking close the modal closed and nothing happened. On clicking delete, the comment disappeared from the screen, and a confirmation message appeared.|
+|Edit and Delete Idea Buttons| Only appear under an idea when the loggged in user is the author. | Clicked on the idea when not logged in, clicked on the idea I posted previously, and clicked on an idea posted by another user.| When not logged in not buttons appeared underneath posts. When logged in, the buttons were visible underneath ideas I had posted, but not underneath ideas posted by other users.
+|Delete Idea Button| When clicked a modal appears with a confirmation message. If close clicked, modal closes and nothing happens. If delete clicked, modal closes, idea and all related comments are deleted, and confirmation message appears. | Click delete under an idea, then click close on modal. Click delete under idea again and this time click delete on modal.| When delete button clicked, a modal appeared. When close clicked, modal closed and nothing happened. Clicked delete again, and this time delete on the modal. The modal closed, idea and related comments deleted, and a confirmation message appeared.|
+| Update Idea Button| When clicked a modal appears with the form for an idea, populated with the existing idea.|Click edit button underneath an idea.| Form appears as expected, propopulated with the idea.|
+| Update Idea Form | Form fields can be added to or changed, on clicking update, idea updates | Open form by clicking edit, change a few fields, click update| Form updated successfully, a confirmation message appeared, and i was redirected to the home page where i could view the updated idea.|
 
 
 ## Deployment
@@ -137,7 +152,13 @@ Adding and making changes to my comments and post is very easy and quick.
 1. Create an account and login to Heroku.
 2. Click create an app.
 3. Choose a name for your app, making sure it's available.
-4. 
+4. Install Gunicorn and add to requirements.txt
+5. Create a Procfile with 'web: gunicorn [Project name].wsgi'
+6. Ensure Debug is set to False, and herokuapp.com is added to allowed hosts in settings.py
+7. Add, commit and push your code to github.
+8. Click the deploy tab on the Heroku dashboard and choose Github, then choose the correct repository.
+9. Click the deploy button.
+10. You can now view the app by clicking view app.
 
 
 ## Citation of Sources
@@ -149,3 +170,4 @@ Adding and making changes to my comments and post is very easy and quick.
 ## Future Features
 
 - In the future i would like to implement a feature for each user to create a profile for themselves, and you can click on the author's name to see their profile and a list of all their ideas.
+- I would like to add a field on updated posts that tells a user when the post was last updated.
